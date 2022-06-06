@@ -1,0 +1,3 @@
+# Shodan consumer
+
+To use, set the `SHODAN_API_KEY` environment variable to your API key.
