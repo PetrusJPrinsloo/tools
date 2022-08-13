@@ -5,11 +5,30 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"time"
 )
 
+var m map[string]string
+
 func main() {
+
+	m = make(map[string]string)
+	m["0"] = "0000"
+	m["1"] = "0001"
+	m["2"] = "0010"
+	m["3"] = "0011"
+	m["4"] = "0100"
+	m["5"] = "0101"
+	m["6"] = "0110"
+	m["7"] = "0111"
+	m["8"] = "1000"
+	m["9"] = "1001"
+	m["A"] = "1010"
+	m["B"] = "1011"
+	m["C"] = "1100"
+	m["D"] = "1101"
+	m["E"] = "1110"
+	m["F"] = "1111"
 
 	ticker := time.NewTicker(5 * time.Second)
 	quit := make(chan struct{})
@@ -69,32 +88,14 @@ func checkFile() {
 			hexString += string(v)
 		}
 	}
-	// 00000001100001000000011101000000000000000000
-	//skip first 5 characters because they are not used
-	//hexString = hexString[5:]
 
-	//for _, v := range hexString {
-	//	fmt.Printf("%s", Hex2Bin(v))
-	//}
-
-	toPrint, _ := Hex2Bin(hexString)
-
-	fmt.Println(Hex2Bin(toPrint))
+	fmt.Println(Hex2Bin(hexString))
 }
 
-//func Hex2Bin(in rune) string {
-//	var out []rune
-//	for i := 3; i >= 0; i-- {
-//		b := in >> uint(i)
-//		out = append(out, (b%2)+48)
-//	}
-//	return string(out)
-//}
-
-func Hex2Bin(hex string) (string, error) {
-	ui, err := strconv.ParseUint(hex, 16, 64)
-	if err != nil {
-		return "", err
+func Hex2Bin(hex string) string {
+	var bin string
+	for _, v := range hex {
+		bin += m[string(v)]
 	}
-	return fmt.Sprintf("%016b", ui), nil
+	return bin
 }
